@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,9 +23,10 @@ import {
 } from "@/components/ui/card";
 import { Link } from "react-router";
 
+// Fixed: z.string().email() instead of z.email()
 const loginSchema = z.object({
   email: z.email({ message: "Please enter a valid email address." }),
-  password: z.string({ message: "Please enter a your password." }),
+  password: z.string().min(1, { message: "Please enter your password." }),
 });
 
 export default function LoginPage() {
@@ -36,7 +38,8 @@ export default function LoginPage() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof loginSchema>) {
+  async function onSubmit(values: z.infer<typeof loginSchema>) {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     console.log("Form Submitted:", values);
   }
 
@@ -51,7 +54,6 @@ export default function LoginPage() {
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Email Field */}
             <FormField
               control={form.control}
               name="email"
@@ -66,7 +68,6 @@ export default function LoginPage() {
               )}
             />
 
-            {/* Password Field */}
             <FormField
               control={form.control}
               name="password"
@@ -86,7 +87,14 @@ export default function LoginPage() {
               className="w-full"
               disabled={form.formState.isSubmitting}
             >
-              {form.formState.isSubmitting ? "Logging in..." : "Login"}
+              {form.formState.isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Logging...
+                </>
+              ) : (
+                "Login"
+              )}
             </Button>
           </form>
         </Form>
