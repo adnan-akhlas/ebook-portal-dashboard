@@ -1,7 +1,7 @@
-import { AppSidebar } from "@/components/app-sidebar";
-import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Outlet } from "react-router";
+import { AppSidebar } from "@/components/layouts/Dashboard/app-sidebar";
+import { SiteHeader } from "@/components/layouts/Dashboard/site-header";
 
 export default function Page() {
   return (

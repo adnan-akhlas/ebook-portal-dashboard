@@ -3,7 +3,7 @@ import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import { createBrowserRouter } from "react-router";
 import RouterHandler from "@/router/RouteHandler";
-import DashboardLayout from "@/components/layouts/DashboardLayout";
+import DashboardLayout from "@/components/layouts/Dashboard/DashboardLayout";
 
 export const router = createBrowserRouter([
   {

@@ -8,8 +8,6 @@ import {
 } from "@tabler/icons-react";
 import * as React from "react";
 
-import { NavMain } from "@/components/nav-main";
-import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +17,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { NavMain } from "@/components/layouts/Dashboard/nav-main";
+import { NavUser } from "@/components/layouts/Dashboard/nav-user";
 
 const navMain = [
   {
