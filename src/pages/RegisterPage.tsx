@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import { useMutation } from "@tanstack/react-query";
 import { type AxiosResponse } from "axios";
 import { Link } from "react-router";
+import { useToken } from "@/zustand/token.store";
 
 const registerSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -44,9 +45,14 @@ export default function RegisterPage() {
     },
   });
 
+  const token = useToken((s) => s.setToken);
+
   const { mutate, isPending } = useMutation({
     mutationFn: registerMutation<AxiosResponse>,
-    onSuccess: () => {},
+    onSuccess: (data) => {
+      token(data.data.accessToken as string);
+      console.log(data.data.accessToken);
+    },
   });
 
   async function onSubmit(values: z.infer<typeof registerSchema>) {

@@ -26,6 +26,7 @@ import { useMutation } from "@tanstack/react-query";
 import type { AxiosResponse } from "axios";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
+import { useToken } from "@/zustand/token.store";
 
 const loginSchema = z.object({
   email: z.email({ message: "Please enter a valid email address." }),
@@ -42,10 +43,13 @@ export default function LoginPage() {
     },
   });
 
+  const token = useToken((s) => s.setToken);
+
   const { mutate, isPending } = useMutation({
     mutationFn: loginMutation<AxiosResponse>,
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("Login successfull.");
+      token(data.data.accessToken as string);
       navigate("/dashboard");
     },
     onError: () => {
