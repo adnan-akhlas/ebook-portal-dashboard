@@ -1,12 +1,12 @@
-import LoginPage from "@/pages/LoginPage";
+import BooksPage from "@/pages/BooksPage";
 import type { IRoutes } from "@/types/routes.types";
-import { IconDashboard } from "@tabler/icons-react";
+import { IconLayoutDashboard } from "@tabler/icons-react";
 
 export const dashboardRoutes: IRoutes[] = [
   {
     title: "Dashboard",
     url: "/dashboard",
-    icon: IconDashboard,
-    Component: LoginPage,
+    icon: IconLayoutDashboard,
+    Component: BooksPage,
   },
 ];
