@@ -1,13 +1,8 @@
-import {
-  IconChartBar,
-  IconDashboard,
-  IconFolder,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconUsers,
-} from "@tabler/icons-react";
+import { IconInnerShadowTop } from "@tabler/icons-react";
 import * as React from "react";
 
+import { NavMain } from "@/components/layouts/Dashboard/nav-main";
+import { NavUser } from "@/components/layouts/Dashboard/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -17,36 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { NavMain } from "@/components/layouts/Dashboard/nav-main";
-import { NavUser } from "@/components/layouts/Dashboard/nav-user";
-
-const navMain = [
-  {
-    title: "Dashboard",
-    url: "#",
-    icon: IconDashboard,
-  },
-  {
-    title: "Lifecycle",
-    url: "#",
-    icon: IconListDetails,
-  },
-  {
-    title: "Analytics",
-    url: "#",
-    icon: IconChartBar,
-  },
-  {
-    title: "Projects",
-    url: "#",
-    icon: IconFolder,
-  },
-  {
-    title: "Team",
-    url: "#",
-    icon: IconUsers,
-  },
-];
+import { navMain } from "@/constant/dashboard.constant";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (

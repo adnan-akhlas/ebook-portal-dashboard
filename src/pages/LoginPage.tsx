@@ -22,8 +22,8 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
-// Fixed: z.string().email() instead of z.email()
 const loginSchema = z.object({
   email: z.email({ message: "Please enter a valid email address." }),
   password: z.string().min(1, { message: "Please enter your password." }),
@@ -39,8 +39,10 @@ export default function LoginPage() {
   });
 
   async function onSubmit(values: z.infer<typeof loginSchema>) {
+    const toastId = toast.loading("Logging...");
     await new Promise((resolve) => setTimeout(resolve, 3000));
     console.log("Form Submitted:", values);
+    toast.success("Login successfull.", { id: toastId });
   }
 
   return (

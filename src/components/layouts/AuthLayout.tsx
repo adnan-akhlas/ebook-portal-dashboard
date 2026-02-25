@@ -1,9 +1,11 @@
 import { Outlet } from "react-router";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function AuthLayout() {
   return (
     <div className="flex items-center justify-center min-h-screen px-4">
       <Outlet />
+      <Toaster />
     </div>
   );
 }

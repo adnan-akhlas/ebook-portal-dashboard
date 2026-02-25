@@ -22,6 +22,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
 const registerSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -42,9 +43,10 @@ export default function RegisterPage() {
   });
 
   async function onSubmit(values: z.infer<typeof registerSchema>) {
-    // Simulate API delay
+    const toastId = toast.loading("Registering...");
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log("Registration Data:", values);
+    toast.success("Register successfull.", { id: toastId });
   }
 
   return (
@@ -122,7 +124,7 @@ export default function RegisterPage() {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex justify-center border-t py-4">
+      <CardFooter className="flex justify-center">
         <p className="text-sm text-muted-foreground">
           Already have an account?{" "}
           <Link
