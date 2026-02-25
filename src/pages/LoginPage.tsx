@@ -43,13 +43,13 @@ export default function LoginPage() {
     },
   });
 
-  const token = useToken((s) => s.setToken);
+  const setToken = useToken((s) => s.setToken);
 
   const { mutate, isPending } = useMutation({
     mutationFn: loginMutation<AxiosResponse>,
     onSuccess: (data) => {
       toast.success("Login successfull.");
-      token(data.data.accessToken as string);
+      setToken(data.data.accessToken as string);
       navigate("/dashboard");
     },
     onError: () => {

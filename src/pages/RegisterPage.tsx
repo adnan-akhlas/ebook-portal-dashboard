@@ -45,12 +45,12 @@ export default function RegisterPage() {
     },
   });
 
-  const token = useToken((s) => s.setToken);
+  const setToken = useToken((s) => s.setToken);
 
   const { mutate, isPending } = useMutation({
     mutationFn: registerMutation<AxiosResponse>,
     onSuccess: (data) => {
-      token(data.data.accessToken as string);
+      setToken(data.data.accessToken as string);
       console.log(data.data.accessToken);
     },
   });

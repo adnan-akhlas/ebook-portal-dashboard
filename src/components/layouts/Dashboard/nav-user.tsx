@@ -22,13 +22,20 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useToken } from "@/zustand/token.store";
 
 export function NavUser() {
+  const unSetToken = useToken((s) => s.unsetToken);
   const { isMobile } = useSidebar();
   const user = {
     name: "shadcn",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
+  };
+
+  const handleLogout = () => {
+    unSetToken();
+    console.log("Click");
   };
 
   return (
@@ -89,7 +96,7 @@ export function NavUser() {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <IconLogout />
               Log out
             </DropdownMenuItem>
