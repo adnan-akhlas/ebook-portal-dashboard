@@ -6,3 +6,11 @@ export async function loginMutation<T>(data: {
 }): Promise<T> {
   return api.post("/users/login", data);
 }
+
+export async function registerMutation<T>(data: {
+  name: string;
+  email: string;
+  password: string;
+}): Promise<T> {
+  return api.post("/users/register", data);
+}

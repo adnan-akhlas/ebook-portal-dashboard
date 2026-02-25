@@ -1,9 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Loader2 } from "lucide-react";
 
+import { registerMutation } from "@/api/auth.api";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -13,16 +22,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { useMutation } from "@tanstack/react-query";
+import { type AxiosResponse } from "axios";
 import { Link } from "react-router";
-import { toast } from "sonner";
 
 const registerSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -42,11 +44,13 @@ export default function RegisterPage() {
     },
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: registerMutation<AxiosResponse>,
+    onSuccess: () => {},
+  });
+
   async function onSubmit(values: z.infer<typeof registerSchema>) {
-    const toastId = toast.loading("Registering...");
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log("Registration Data:", values);
-    toast.success("Register successfull.", { id: toastId });
+    mutate(values);
   }
 
   return (
@@ -112,7 +116,7 @@ export default function RegisterPage() {
               className="w-full"
               disabled={form.formState.isSubmitting}
             >
-              {form.formState.isSubmitting ? (
+              {form.formState.isSubmitting || isPending ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Creating account...
