@@ -4,6 +4,8 @@ import RegisterPage from "@/pages/RegisterPage";
 import { createBrowserRouter } from "react-router";
 import RouterHandler from "@/router/RouteHandler";
 import DashboardLayout from "@/components/layouts/Dashboard/DashboardLayout";
+import { generateRoutes } from "@/utils/generateRoutes";
+import { authRoutes } from "@/constant/auth.constant";
 
 export const router = createBrowserRouter([
   {
@@ -13,16 +15,7 @@ export const router = createBrowserRouter([
   {
     path: "/auth",
     Component: AuthLayout,
-    children: [
-      {
-        path: "login",
-        Component: LoginPage,
-      },
-      {
-        path: "register",
-        Component: RegisterPage,
-      },
-    ],
+    children: [...generateRoutes(authRoutes)],
   },
   {
     path: "/dashboard",

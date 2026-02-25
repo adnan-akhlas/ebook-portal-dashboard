@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/card";
 import { Link } from "react-router";
 import { toast } from "sonner";
+import { generateRoutes } from "@/utils/generateRoutes";
+import { dashboardRoutes } from "@/constant/dashboard.constant";
 
 const loginSchema = z.object({
   email: z.email({ message: "Please enter a valid email address." }),

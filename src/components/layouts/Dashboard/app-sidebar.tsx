@@ -12,7 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { navMain } from "@/constant/dashboard.constant";
+import { dashboardRoutes } from "@/constant/dashboard.constant";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -33,7 +33,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={navMain} />
+        <NavMain items={dashboardRoutes} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
