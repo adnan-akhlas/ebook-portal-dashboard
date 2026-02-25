@@ -1,9 +1,14 @@
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
 import { AppSidebar } from "@/components/layouts/Dashboard/app-sidebar";
 import { SiteHeader } from "@/components/layouts/Dashboard/site-header";
+import { useToken } from "@/zustand/token.store";
 
-export default function Page() {
+export default function DashboardLayout() {
+  const token = useToken((s) => s.token);
+  if (!token) {
+    return <Navigate to={"/auth/login"} replace />;
+  }
   return (
     <SidebarProvider
       style={
