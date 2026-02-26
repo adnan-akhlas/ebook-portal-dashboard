@@ -1,8 +1,9 @@
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { PlusCircle } from "lucide-react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
+import { bookMutation } from "@/api/books.api";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -22,10 +23,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useMutation } from "@tanstack/react-query";
-import { bookMutation } from "@/api/books.api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosResponse } from "axios";
-import { useToken } from "@/zustand/token.store";
 
 // 1. Updated Schema (Author removed, Description kept)
 const bookSchema = z.object({
@@ -38,7 +37,7 @@ const bookSchema = z.object({
   file: z.any().refine((file) => file instanceof File, "PDF file is required"),
 });
 
-export function AddBookModal() {
+export default function AddBookModal() {
   const form = useForm<z.infer<typeof bookSchema>>({
     resolver: zodResolver(bookSchema),
     defaultValues: {
@@ -50,10 +49,13 @@ export function AddBookModal() {
     },
   });
 
+  const queryClient = useQueryClient();
+
   const { mutate } = useMutation({
     mutationFn: bookMutation<AxiosResponse>,
     onSuccess: (data) => {
       console.log(data);
+      queryClient.invalidateQueries({ queryKey: ["BOOKS"] });
     },
   });
   function onSubmit(values: z.infer<typeof bookSchema>) {

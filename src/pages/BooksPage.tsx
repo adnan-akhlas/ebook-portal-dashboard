@@ -1,5 +1,5 @@
 import { booksQuery } from "@/api/books.api";
-import { AddBookModal } from "@/components/AddBookModal";
+import AddBookModal from "@/components/AddBookModal";
 import {
   Table,
   TableBody,
